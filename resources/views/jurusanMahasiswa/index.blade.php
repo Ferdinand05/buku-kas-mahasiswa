@@ -28,7 +28,7 @@
             @foreach ($jurusan as $item)
                 <tr>
                     <td>{{ $i++ }}</td>
-                    <td>{{ $item['nama'] }}</td>
+                    <td>{{ $item['jurusan'] }}</td>
                     <td>{{ $item->mahasiswa->count() }}</td>
                     <td>{{ $item->created_at->toFormattedDateString() }}</td>
                     <td>

@@ -71,7 +71,7 @@
 
                 <li class="nav-header ">Transaksi</li>
                 <li class="nav-item">
-                    <a href="../widgets.html" class="nav-link">
+                    <a href="{{ route('transaksi.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-file-invoice-dollar"></i>
                         <p>
                             Transaksi
@@ -79,7 +79,7 @@
                     </a>
                 </li>
                 <li class="nav-item user-panel">
-                    <a href="../widgets.html" class="nav-link">
+                    <a href="{{ route('rekapitulasi.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-wallet"></i>
                         <p>
                             Rekapitulasi
@@ -88,18 +88,19 @@
                 </li>
                 <li class="nav-header">Laporan</li>
                 <li class="nav-item">
-                    <a href="../widgets.html" class="nav-link">
+                    <a href="{{ route('laporan-transaksi.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-file-alt"></i>
                         <p>
-                            Transaksi
+                            Laporan Transaksi
                         </p>
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a href="../widgets.html" class="nav-link">
                         <i class="nav-icon fas fa-file-alt"></i>
                         <p>
-                            Mahasiswa
+                            Laporan Mahasiswa
                         </p>
                     </a>
                 </li>

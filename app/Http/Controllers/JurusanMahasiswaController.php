@@ -48,7 +48,7 @@ class JurusanMahasiswaController extends Controller
         } else {
 
             JurusanMahasiswa::create([
-                'nama' => $request->nama_jurusan
+                'jurusan' => $request->nama_jurusan
             ]);
 
             $json = [

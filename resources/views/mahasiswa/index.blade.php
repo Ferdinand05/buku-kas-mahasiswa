@@ -1,7 +1,7 @@
 <x-app-layout title="Mahasiswa">
 
     @section('title')
-        Mahasiswa
+        <i class="fas fa-user-graduate"></i> Mahasiswa
     @endsection
 
     @section('card-title')
@@ -10,14 +10,16 @@
             </i></button>
         <div class="row  my-2">
             <div class="col-md-7">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Cari Mahasiswa..."
-                        aria-describedby="button-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button" id="button-addon2"><i
-                                class="fas fa-search"></i></button>
+                <form action="" method="get">
+                    <div class="input-group">
+                        <input type="text" name="keyword" class="form-control" placeholder="Cari Mahasiswa..."
+                            aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit" id="button-addon2"><i
+                                    class="fas fa-search"></i></button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     @endsection
@@ -45,7 +47,7 @@
                     <td>{{ $i++ }}</td>
                     <td>{{ $item->nim }}</td>
                     <td>{{ $item->nama }}</td>
-                    <td>{{ $item->jurusanMahasiswa?->nama }}</td>
+                    <td>{{ $item->jurusanMahasiswa?->jurusan }}</td>
                     <td>{{ $item->alamat }}</td>
                     <td>{{ $item->no_telp }}</td>
                     <td>{{ $item->created_at->format('d-m-Y') }}</td>

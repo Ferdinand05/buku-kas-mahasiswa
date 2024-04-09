@@ -18,9 +18,17 @@ class MahasiswaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('mahasiswa.index', ['mahasiswa' => Mahasiswa::orderBy('created_at', 'desc')->paginate(9)]);
+        $keyword = $request->keyword;
+        if ($keyword) {
+            $data = Mahasiswa::join('jurusan_mahasiswa', 'jurusan_mahasiswa.id', '=', 'mahasiswa.id_jurusan_mahasiswa')
+                ->where('mahasiswa.nama', 'LIKE', "%$keyword%")->orWhere('jurusan_mahasiswa.jurusan', "LIKE", "%$keyword%")->orWhere('mahasiswa.nim', "LIKE", "%$keyword%")->paginate();
+        } else {
+            $data = Mahasiswa::orderBy('created_at', 'desc')->paginate(9);
+        }
+
+        return view('mahasiswa.index', ['mahasiswa' => $data]);
     }
 
     /**

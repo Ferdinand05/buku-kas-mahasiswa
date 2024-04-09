@@ -13,12 +13,15 @@ class DashboardController extends Controller
 {
     public function __invoke()
     {
+
+        $bulan = date('m');
+
         return view(
             'dashboard.index',
             [
                 'mahasiswa' => Mahasiswa::count(),
                 'user' => User::count(),
-                'kategoritransaksi' => KategoriTransaksi::count(),
+                'totalTransaksi' => Transaksi::where('jenis', 'Pemasukan')->whereMonth('created_at', $bulan)->sum('total'),
                 'transaksi' => Transaksi::count()
             ]
         );

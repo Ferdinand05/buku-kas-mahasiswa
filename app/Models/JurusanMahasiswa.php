@@ -10,7 +10,7 @@ class JurusanMahasiswa extends Model
     use HasFactory;
     protected $table = 'jurusan_mahasiswa';
     protected $primaryKey = 'id';
-    protected $fillable = ['nama'];
+    protected $fillable = ['jurusan'];
 
     public function mahasiswa()
     {
