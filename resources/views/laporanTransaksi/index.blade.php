@@ -24,6 +24,27 @@
                 </div>
             </div>
         </form>
+        <hr class="my-3">
+        <form action="{{ route('laporan-transaksi.export') }}" method="post">
+            @csrf
+            <div class="row ">
+                <div class="col-md">
+                    <label for="tanggal_awal" class="form-label">Tanggal Awal</label>
+                    <input type="date" name="tanggal_awal" id="tanggal_awal" class="form-control">
+                </div>
+                <div class="col-md">
+                    <label for="tanggal_akhir" class="form-label">Tanggal Akhir</label>
+                    <input type="date" name="tanggal_akhir" id="tanggal_akhir" class="form-control">
+                </div>
+                <div class="col-md">
+                    <label for="">Export Excel</label>
+                    <div class="input-group">
+                        <button type="submit" class="btn btn-danger">Export Excel <i
+                                class="fas fa-file-excel"></i></button>
+                    </div>
+                </div>
+            </div>
+        </form>
     @endsection
 
     <h5>Pemasukan - {{ $pemasukan->count() }}</h5>
