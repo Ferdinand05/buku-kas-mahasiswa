@@ -24,6 +24,7 @@ Route::post('laporan-transaksi/print-pdf', [LaporanTransaksiController::class, '
 Route::post('laporan-transaksi/export', [LaporanTransaksiController::class, 'exportExcel'])->name('laporan-transaksi.export');
 Route::get('laporan-mahasiswa', [LaporanMahasiswaController::class, 'index'])->name('laporan-mahasiswa.index');
 Route::post('laporan-mahasiswa/print-pdf', [LaporanMahasiswaController::class, 'printPDF'])->name('laporan-mahasiswa.pdf');
+Route::post('laporan-mahasiswa/export', [LaporanMahasiswaController::class, 'exportExcel'])->name('laporan-mahasiswa.export');
 
 
 Route::resource('jurusan-mahasiswa', JurusanMahasiswaController::class);

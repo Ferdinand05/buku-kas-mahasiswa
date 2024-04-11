@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MahasiswaExport;
 use App\Exports\TransaksiExport;
 use App\Models\JurusanMahasiswa;
 use App\Models\Mahasiswa;
+use ArielMejiaDev\LarapexCharts\PieChart;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
@@ -37,5 +39,11 @@ class LaporanMahasiswaController extends Controller
 
         $pdf = PDF::loadView('laporanMahasiswa.mahasiswaPDF', ['mahasiswa' => $data, 'jurusan' => $namaJurusan]);
         return $pdf->download('laporan_mahasiswa.pdf');
+    }
+
+    public function exportExcel(Request $request)
+    {
+        $jurusan = $request->post('filter_jurusan');
+        return Excel::download(new MahasiswaExport($jurusan), 'mahasiswa.xlsx');
     }
 }

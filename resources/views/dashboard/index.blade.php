@@ -73,4 +73,15 @@
         </div>
         <!-- ./col -->
     </div>
+
+    <div class="mt-4">
+        {!! $chart->container() !!}
+    </div>
+
+    <div class="mt-4">
+        {!! $chart2->container() !!}
+    </div>
+
+    {!! $chart->script() !!}
+    {!! $chart2->script() !!}
 </x-app-layout>

@@ -24,6 +24,29 @@
                 </div>
             </div>
         </form>
+        <div class="mt-3">
+            <form action="{{ route('laporan-mahasiswa.export') }}" method="post">
+                @csrf
+                <div class="row">
+                    <div class="col-md">
+                        <label for="filter_jurusan">Export Sesuai Jurusan</label>
+                        <select name="filter_jurusan" id="filter_jurusan" class="form-control">
+                            <option value="" selected disabled>Pilih Jurusan</option>
+                            @foreach ($jurusan as $j)
+                                <option value="{{ $j->id }}">{{ $j->jurusan }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md">
+                        <label for="">Export Excel</label>
+                        <div class="input-group">
+                            <button type="submit" class="btn btn-danger">Export Excel <i
+                                    class="fas fa-file-excel"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     @endsection
 
     <table class="table table-bordered table-sm">
