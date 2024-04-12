@@ -117,14 +117,14 @@ class MahasiswaController extends Controller
     {
         $validator = Validator::make(
             [
-                'nim' => $request->nim,
+                'nim_baru' => $request->nim_baru,
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
                 'no_telp' => $request->no_telp,
                 'jurusan_mahasiswa' => $request->jurusan_mahasiswa
             ],
             [
-                'nim' => 'required|string|min:6|max:10|' . Rule::unique('mahasiswa', 'nim')->ignore($request->nim, 'nim'),
+                'nim_baru' => 'required|string|min:6|max:10|' . Rule::unique('mahasiswa', 'nim')->ignore($request->nim, 'nim'),
                 'nama' => 'required|string|min:3',
                 'alamat' => 'required|string',
                 'no_telp' => 'required|numeric|min_digits:4',
@@ -138,7 +138,7 @@ class MahasiswaController extends Controller
         } else {
 
             Mahasiswa::whereNim($request->nim)->update([
-                'nim' => $request->nim,
+                'nim' => $request->nim_baru,
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
                 'no_telp' => $request->no_telp,

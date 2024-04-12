@@ -34,9 +34,11 @@
                     <td>
                         <button type="button" class="btn btn-sm btn-primary"
                             onclick="editKategoriTransaksi({{ $item->id }})"><i class="fas fa-edit"></i></button>
-                        <button type="button" class="btn btn-sm btn-danger"
-                            onclick="destroyKategoriTransaksi({{ $item->id }})"><i
-                                class="fas fa-trash-alt"></i></button>
+                        @role('super admin')
+                            <button type="button" class="btn btn-sm btn-danger"
+                                onclick="destroyKategoriTransaksi({{ $item->id }})"><i
+                                    class="fas fa-trash-alt"></i></button>
+                        @endrole
                     </td>
                 </tr>
             @endforeach

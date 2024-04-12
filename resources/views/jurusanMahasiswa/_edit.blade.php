@@ -16,7 +16,7 @@
                         <label for="nama_jurusan">Nama Jurusan</label>
                         <div class="input-group">
                             <input type="text" name="nama_jurusan" id="nama_jurusan" class="form-control"
-                                value="{{ $jurusan->nama }}">
+                                value="{{ $jurusan->jurusan }}">
                         </div>
                         <small class="errorNama text-danger"></small>
                     </div>

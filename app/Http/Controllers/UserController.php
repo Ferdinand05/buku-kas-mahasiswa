@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -12,7 +13,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user.index', ['users' => User::all()]);
+
+        if (Auth::user()->getRoleNames()[0] == 'super admin') {
+            return view('user.index', ['users' => User::all()]);
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -34,9 +40,9 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
-        //
+        return view('user.show', ['user' => $user]);
     }
 
     /**
@@ -44,7 +50,6 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
     }
 
     /**

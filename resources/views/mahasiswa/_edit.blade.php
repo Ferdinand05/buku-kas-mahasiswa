@@ -13,8 +13,9 @@
                 <form id="formEditMahasiswa">
                     <div class="form-group">
                         <label for="nim">NIM</label>
+                        <input type="text" hidden value="{{ $mahasiswa->nim }}" name="nim" id="nim">
                         <div class="input-group">
-                            <input type="text" name="nim" id="nim" class="form-control"
+                            <input type="text" name="nim_baru" id="nim_baru" class="form-control"
                                 value="{{ $mahasiswa->nim }}">
                         </div>
                         <small class="errorNim text-danger"></small>
@@ -53,9 +54,9 @@
                                 <option selected disabled>> Pilih < </option>
                                         @foreach ($jurusan as $j)
                                             @if ($j->id == $mahasiswa->id_jurusan_mahasiswa)
-                                <option value="{{ $j->id }}" selected>{{ $j->nama }}</option>
+                                <option value="{{ $j->id }}" selected>{{ $j->jurusan }}</option>
                             @else
-                                <option value="{{ $j->id }}">{{ $j->nama }}</option>
+                                <option value="{{ $j->id }}">{{ $j->jurusan }}</option>
                                 @endif
                                 @endforeach
                             </select>
@@ -85,6 +86,7 @@
             data: {
                 _token: "{{ csrf_token() }}",
                 nim: nim,
+                nim_baru: $('#nim_baru').val(),
                 nama: $('#nama').val(),
                 alamat: $('#alamat').val(),
                 no_telp: $('#no_telp').val(),
@@ -93,8 +95,8 @@
             dataType: "json",
             success: function(response) {
                 if (response.error) {
-                    e = response.error;
-                    $('.errorNim').html(e.nim);
+                    let e = response.error;
+                    $('.errorNim').html(e.nim_baru);
                     $('.errorNama').html(e.nama);
                     $('.errorAlamat').html(e.alamat);
                     $('.errorNoTelp').html(e.no_telp);

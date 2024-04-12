@@ -34,9 +34,11 @@
                     <td>
                         <button type="button" class="btn btn-sm btn-primary"
                             onclick="editJurusanMahasiswa({{ $item->id }})"><i class="fas fa-edit"></i></button>
-                        <button type="button" class="btn btn-sm btn-danger"
-                            onclick="destroyJurusanMahasiswa({{ $item->id }})"><i
-                                class="fas fa-trash-alt"></i></button>
+                        @role('super admin')
+                            <button type="button" class="btn btn-sm btn-danger"
+                                onclick="destroyJurusanMahasiswa({{ $item->id }})"><i
+                                    class="fas fa-trash-alt"></i></button>
+                        @endrole
                     </td>
                 </tr>
             @endforeach
