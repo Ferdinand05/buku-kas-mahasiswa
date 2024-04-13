@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -26,7 +28,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::all();
+        $data = [
+            'view' => view('user._create', ['roles' => $roles])->render()
+        ];
+        return response()->json($data);
     }
 
     /**
@@ -34,7 +40,39 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make(
+            [
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->password,
+                'role' => $request->role
+            ],
+            [
+                'name' => 'required|min:3',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|min:6',
+                'role' => 'required'
+            ]
+        );
+
+        if ($validator->fails()) {
+            $json = [
+                'error' => $validator->errors()->getMessages()
+            ];
+        } else {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->password
+            ]);
+
+            $user->assignRole(intval($request->role));
+            $json = [
+                'success' => 'User baru berhasil di Daftarkan!'
+            ];
+        }
+
+        return response()->json($json);
     }
 
     /**

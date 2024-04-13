@@ -4,7 +4,8 @@
         Users
     @endsection
     @section('card-title')
-        <button type="submit" class="btn btn-success btn-sm">Create User <i class="fas fa-plus"></i></button>
+        <button type="submit" class="btn btn-success btn-sm" id="btnCreateUser">Create User <i
+                class="fas fa-plus"></i></button>
     @endsection
 
     <table class="table table-striped">
@@ -39,5 +40,27 @@
         </tbody>
     </table>
 
+    <div class="modalUser"></div>
 
+    <script>
+        $('#btnCreateUser').click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "get",
+                url: "{{ route('user.create') }}",
+                data: {
+                    _token: "{{ csrf_token() }}"
+                },
+                dataType: "json",
+                beforeSend: function() {
+                    $('#btnCreateUser').prop('disabled', true);
+                },
+                success: function(response) {
+                    $('#btnCreateUser').prop('disabled', false);
+                    $('.modalUser').html(response.view);
+                    $('#createUser').modal('show');
+                }
+            });
+        });
+    </script>
 </x-app-layout>

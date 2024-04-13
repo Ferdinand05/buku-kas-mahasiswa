@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     // table rekapitulasi
     Route::get('rekapitulasi', [RekapitulasiController::class, 'index'])->name('rekapitulasi.index');
     Route::get('rekapitulasi/table', [RekapitulasiController::class, 'tableRekapitulasi'])->name('rekapitulasi.table');
+
     // Laporan
     Route::get('laporan-transaksi', [LaporanTransaksiController::class, 'index'])->name('laporan-transaksi.index');
     Route::post('laporan-transaksi/print-pdf', [LaporanTransaksiController::class, 'printPDF'])->name('laporan-transaksi.pdf');
