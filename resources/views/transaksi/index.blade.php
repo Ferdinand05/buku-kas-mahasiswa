@@ -7,6 +7,19 @@
     @section('card-title')
         <button type="button" id="btnModalCreateTransaksi" class="btn btn-success btn-sm">Create <i
                 class="fas fa-plus"></i></button>
+
+        @role('super admin')
+            <div class="btn-group ml-4" role="group" aria-label="Basic example">
+                <button class="btn btn-sm btn-danger" type="button" id="btnSoftdelete"><i class="fas fa-backspace"></i>
+                    Delete
+                    semua
+                    Transaksi</button>
+                <button class="btn btn-sm btn-warning" type="button" id="btnRestore"><i class="fas fa-undo-alt"></i>
+                    Restore
+                    Transaksi</button>
+            </div>
+        @endrole
+
         <div class="row  my-2">
             <div class="col-md-7">
                 <form action="" method="get">
@@ -148,6 +161,88 @@
                 success: function(response) {
                     $('.modalTransaksi').html(response.view);
                     $('#createTransaksi').modal('show');
+                }
+            });
+        });
+
+        // softdelete
+        $('#btnSoftdelete').click(function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: "Hapus semua Transaksi ? ",
+                text: "Semua data Transaksi akan dihapus disarankan mencetak Laporan Transaksi",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete all!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('transaksi.softdelete') }}",
+                        data: {
+                            _token: "{{ csrf_token() }}"
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: response.success,
+                                    icon: "success"
+                                });
+
+                                setTimeout(() => {
+                                    window.location.reload()
+                                }, 1500);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+
+
+
+
+
+
+
+        $('#btnRestore').click(function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: "Kembalikan semua transaksi ? ",
+                text: "Semua data Transaksi akan Dikembalikan",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete all!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('transaksi.restore') }}",
+                        data: {
+                            _token: "{{ csrf_token() }}"
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    title: "Restore!",
+                                    text: response.success,
+                                    icon: "success"
+                                });
+
+                                setTimeout(() => {
+                                    window.location.reload()
+                                }, 1500);
+                            }
+                        }
+                    });
                 }
             });
         });

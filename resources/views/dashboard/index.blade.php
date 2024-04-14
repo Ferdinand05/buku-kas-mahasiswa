@@ -63,7 +63,7 @@
                 <div class="inner">
                     <h3>{{ $transaksi }}</h3>
 
-                    <p>Transaksi</p>
+                    <p>Jumlah Transaksi hari ini</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-pie-graph"></i>

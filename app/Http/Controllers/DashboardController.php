@@ -56,7 +56,7 @@ class DashboardController extends Controller
                 'mahasiswa' => Mahasiswa::count(),
                 'user' => User::count(),
                 'totalTransaksi' => $pemasukan,
-                'transaksi' => Transaksi::count(),
+                'transaksi' => Transaksi::whereDate('created_at', date('y-m-d'))->count(),
                 'chart' => $chart,
                 'chart2' => $chart2
             ]

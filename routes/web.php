@@ -25,15 +25,26 @@ Route::middleware('guest')->group(function () {
 
 
 Route::middleware('auth')->group(function () {
+    // logout
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
+    // index
     Route::get('/', DashboardController::class)->name('dashboard');
 
+    // CRUD
     Route::resource('user', UserController::class);
     Route::resource('kategori-transaksi', KategoriTransaksiController::class);
     Route::resource('mahasiswa', MahasiswaController::class);
     Route::resource('jurusan-mahasiswa', JurusanMahasiswaController::class);
     Route::resource('transaksi', TransaksiController::class);
+
+    // khusus untuk Super Admin
+    Route::middleware('role:super admin')->group(function () {
+        Route::post('transaksi/softdelete', [TransaksiController::class, 'softdelete'])->name('transaksi.softdelete');
+        Route::post('transaksi/restore', [TransaksiController::class, 'restore'])->name('transaksi.restore');
+    });
+
+
     // table rekapitulasi
     Route::get('rekapitulasi', [RekapitulasiController::class, 'index'])->name('rekapitulasi.index');
     Route::get('rekapitulasi/table', [RekapitulasiController::class, 'tableRekapitulasi'])->name('rekapitulasi.table');

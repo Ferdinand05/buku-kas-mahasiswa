@@ -201,4 +201,34 @@ class TransaksiController extends Controller
 
         return response()->json($json);
     }
+
+    public function softdelete(Request $request)
+    {
+        if ($request->ajax()) {
+            $transaksi = Transaksi::whereNull('deleted_at')->get();
+
+            foreach ($transaksi as $data) {
+                $data->delete();
+            }
+
+            $json = [
+                'success' => 'Semua data transaksi telah dihapus!'
+            ];
+        }
+
+        return response()->json($json);
+    }
+
+
+    public function restore(Request $request)
+    {
+        if ($request->ajax()) {
+            $transaksi = Transaksi::whereNotNull('deleted_at')->restore();
+            $json = [
+                'success' => 'Semua data transaksi telah Dikembalikan!'
+            ];
+        }
+
+        return response()->json($json);
+    }
 }
