@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JurusanMahasiswaController;
 use App\Http\Controllers\KategoriTransaksiController;
@@ -45,6 +46,8 @@ Route::middleware('auth')->group(function () {
     });
 
 
+
+
     // table rekapitulasi
     Route::get('rekapitulasi', [RekapitulasiController::class, 'index'])->name('rekapitulasi.index');
     Route::get('rekapitulasi/table', [RekapitulasiController::class, 'tableRekapitulasi'])->name('rekapitulasi.table');
@@ -56,4 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::get('laporan-mahasiswa', [LaporanMahasiswaController::class, 'index'])->name('laporan-mahasiswa.index');
     Route::post('laporan-mahasiswa/print-pdf', [LaporanMahasiswaController::class, 'printPDF'])->name('laporan-mahasiswa.pdf');
     Route::post('laporan-mahasiswa/export', [LaporanMahasiswaController::class, 'exportExcel'])->name('laporan-mahasiswa.export');
+
+    // activity log
+    Route::get('logs', [ActivityLogController::class, 'index'])->name('log');
 });

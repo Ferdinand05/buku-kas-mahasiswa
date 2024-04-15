@@ -144,7 +144,8 @@ class MahasiswaController extends Controller
                 'no_telp' => $request->no_telp,
                 'id_jurusan_mahasiswa' => $request->jurusan_mahasiswa
             ]);
-
+            $model = Mahasiswa::find($request->nim);
+            activity()->event('Updated')->performedOn($model)->causedBy(auth()->user()->id)->log('Updated Mahasiswa ' . $request->nim);
             $json = [
                 'success' => 'Mahasiswa berhasil ditambahkan!'
             ];

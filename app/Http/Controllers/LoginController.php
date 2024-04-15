@@ -27,6 +27,7 @@ class LoginController extends Controller
         ];
 
         if (Auth::attempt($credentials, $request->remember)) {
+            activity()->event('Logged in')->causedBy(auth()->user()->id)->log(Auth::user()->name . ' Logged in!');
             return redirect()->route('dashboard');
         } else {
             ValidationException::withMessages([

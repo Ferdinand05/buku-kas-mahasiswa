@@ -98,7 +98,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item user-panel">
                     <a href="{{ route('laporan-mahasiswa.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-file-alt"></i>
                         <p>
@@ -107,6 +107,14 @@
                     </a>
                 </li>
                 <li class="nav-header">Utilitas</li>
+                <li class="nav-item">
+                    <a href="{{ route('log') }}" class="nav-link">
+                        <i class="nav-icon fas fa-chart-line"></i>
+                        <p>
+                            Logs
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link">
                         <i class="nav-icon fas fa-sign-out-alt"></i>

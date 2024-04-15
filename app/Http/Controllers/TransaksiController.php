@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\TransaksiChart;
 use App\Models\KategoriTransaksi;
 use App\Models\Mahasiswa;
 use App\Models\Transaksi;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Validator;
 
@@ -94,6 +96,7 @@ class TransaksiController extends Controller
                 'id_kategori_transaksi' => $request->kategori_transaksi
             ]);
 
+
             $json = [
                 'success' => 'Transaksi berhasil disimpan'
             ];
@@ -178,6 +181,8 @@ class TransaksiController extends Controller
                 'id_kategori_transaksi' => $request->kategori_transaksi
             ]);
 
+            $model = Transaksi::find($request->kode_transaksi);
+            activity()->causedBy(auth()->user()->id)->performedOn($model)->event('Updated')->log('Updated ' . $request->kode_transaksi);
             $json = [
                 'success' => 'Transaksi berhasil disimpan'
             ];

@@ -48,7 +48,7 @@
                             <select name="jurusan_mahasiswa" id="jurusan_mahasiswa" class="form-control">
                                 <option selected disabled>> Pilih < </option>
                                         @foreach ($jurusan as $j)
-                                <option value="{{ $j->id }}">{{ $j->nama }}</option>
+                                <option value="{{ $j->id }}">{{ $j->jurusan }}</option>
                                 @endforeach
                             </select>
                         </div>
