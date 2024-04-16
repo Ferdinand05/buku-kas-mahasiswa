@@ -18,7 +18,8 @@ class Mahasiswa extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['nim', 'nama', 'alamat', 'no_telp', 'jurusanMahasiswa.jurusan'])->setDescriptionForEvent(fn (string $eventName) => "This new Mahasiswa has been {$eventName}");
+            ->logOnly(['nim', 'nama', 'alamat', 'no_telp', 'jurusanMahasiswa.jurusan'])->setDescriptionForEvent(fn (string $eventName) => "This new Mahasiswa has been {$eventName}")
+            ->useLogName('Mahasiswa');
         // Chain fluent methods for configuration options
     }
 

@@ -21,7 +21,8 @@ class Transaksi extends Model
     {
         return LogOptions::defaults()
             ->logOnly(['kode_transaksi', 'jenis', 'mahasiswa.nama', 'kategoriTransaksi.nama', 'users.name', 'total'])
-            ->setDescriptionForEvent(fn (string $eventName) => "This new Transaksi has been {$eventName}");
+            ->setDescriptionForEvent(fn (string $eventName) => "This new Transaksi has been {$eventName}")
+            ->useLogName('Transaksi');
         // Chain fluent methods for configuration options
     }
 

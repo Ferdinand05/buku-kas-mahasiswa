@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Unique;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -67,6 +69,9 @@ class UserController extends Controller
             ]);
 
             $user->assignRole(intval($request->role));
+
+
+
             $json = [
                 'success' => 'User baru berhasil di Daftarkan!'
             ];
@@ -86,23 +91,79 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request)
     {
+        $json = [
+            'view' => view('user._edit', [
+                'user' => User::find($request->user_id),
+                'roles' => Role::all()
+            ])->render()
+        ];
+
+        return response()->json($json);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $validator = Validator::make(
+            [
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'role' => $request->role
+            ],
+            [
+                'nama' => 'required|min:3',
+                'email' => 'required|email|' . Rule::unique('users', 'email')->ignore($request->email, 'email'),
+                'role' => 'required'
+            ]
+        );
+
+        if ($validator->fails()) {
+            $json = [
+                'error' => $validator->errors()->getMessages()
+            ];
+        } else {
+            User::where('id', $request->user_id)->update([
+                'name' => $request->nama,
+                'email' => $request->email,
+                'password' => $request->password
+            ]);
+
+            $user = User::where('id', $request->user_id)->first();
+            $user_role = $user->getRoleNames()[0];
+            $user->removeRole($user_role);
+            $user->assignRole(intval($request->role));
+
+            activity()->event('Updated')->causedBy(auth()->user()->id)
+                ->performedOn($user)->log('Updated ' . $request->email . " - " . $user_role);
+
+            $json = [
+                'success' => 'User  berhasil di Update!'
+            ];
+        }
+
+        return response()->json($json);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $user = User::find($request->user_id);
+            $role_name = $user->getRoleNames()[0];
+            $user->removeRole($role_name);
+            $user->delete();
+
+            $json = [
+                'success' => 'Admin user berhasil Dihapus!'
+            ];
+        }
+
+        return response()->json($json);
     }
 }

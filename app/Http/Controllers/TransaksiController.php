@@ -212,9 +212,14 @@ class TransaksiController extends Controller
         if ($request->ajax()) {
             $transaksi = Transaksi::whereNull('deleted_at')->get();
 
+            activity()->causedBy(auth()->user()->id)->useLog('Softdelete')->event('Softdelete')
+                ->log('Softdeletes all transaction!');
+
             foreach ($transaksi as $data) {
                 $data->delete();
             }
+
+
 
             $json = [
                 'success' => 'Semua data transaksi telah dihapus!'
@@ -229,6 +234,10 @@ class TransaksiController extends Controller
     {
         if ($request->ajax()) {
             $transaksi = Transaksi::whereNotNull('deleted_at')->restore();
+
+            activity()->causedBy(auth()->user()->id)->useLog('Restore')->event('Restore')
+                ->log('Restored all transaction!');
+
             $json = [
                 'success' => 'Semua data transaksi telah Dikembalikan!'
             ];

@@ -6,7 +6,6 @@
         Reports
     @endsection
 
-
     <div class="accordion" id="accordionExample">
         @foreach ($logs as $log)
             <div class="card">
@@ -15,11 +14,15 @@
                         <button class="btn  btn-block text-left collapsed" type="button" data-toggle="collapse"
                             data-target="#collapse{{ $log->id }}" aria-expanded="false" aria-controls="collapse">
                             @if ($log->event == 'deleted')
-                                <span class=" badge badge-danger">{{ $log->event }}</span>
+                                <span class=" badge badge-danger">{{ $log->event }} {{ $log->log_name }}</span>
                             @elseif ($log->event == 'Updated')
                                 <span class=" badge badge-primary">{{ $log->event }}</span>
-                            @else
+                            @elseif($log->event == 'created')
                                 <span class=" badge badge-success">{{ $log->event }}</span>
+                            @elseif($log->event == 'Softdelete' || $log->event == 'Restore')
+                                <span class=" badge badge-warning">{{ $log->event }}</span>
+                            @else
+                                <span class=" badge badge-secondary">{{ $log->event }}</span>
                             @endif
 
                             {{ $log->created_at->format('d M Y H:i') }} <code> {{ $log->description }}</code>
@@ -32,8 +35,9 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><small>Subject</small><br>{{ $log->subject }}</li>
                             <li class="list-group-item"><small>Properties</small><br>{{ $log->properties }}</li>
-                            <li class="list-group-item"><small>Caused by</small><br>{{ $log->causer->email }} -
-                                {{ $log->causer->name }}</li>
+                            <li class="list-group-item"><small>Caused
+                                    by</small><br>{{ $log->causer->email ?? 'User Deleted' }} -
+                                {{ $log->causer->name ?? 'User deleted' }}</li>
                         </ul>
                     </div>
                 </div>

@@ -17,7 +17,8 @@ class KategoriTransaksi extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logFillable();
+            ->logFillable()->setDescriptionForEvent(fn (string $eventName) => "This new Kategori Transaksi has been {$eventName}")
+            ->useLogName('Kategori Transaksi');
         // Chain fluent methods for configuration options
     }
 }

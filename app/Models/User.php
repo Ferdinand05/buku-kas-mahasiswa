@@ -8,11 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles, LogsActivity;
+    use HasFactory, Notifiable, HasRoles, HasPermissions, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -52,7 +53,8 @@ class User extends Authenticatable
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logFillable()->setDescriptionForEvent(fn (string $eventName) => "New User/Admin has been {$eventName}");
+            ->logOnly(['name', 'email', 'created_at', 'updated_at', 'id'])->setDescriptionForEvent(fn (string $eventName) => "New User/Admin has been {$eventName}")
+            ->useLogName('User');
         // Chain fluent methods for configuration options
     }
 }
