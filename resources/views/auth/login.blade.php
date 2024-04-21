@@ -1,6 +1,12 @@
 @include('layouts.header', ['title' => 'Login'])
 
 <body class="hold-transition login-page">
+    @if (session()->has('success'))
+        <div class="alert alert-primary" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="login-box">
         <div class="login-logo">
             <a href=""><b>Buku Kas</b> Mahasiswa</a>
@@ -54,6 +60,11 @@
                                 In</button>
                         </div>
                         <!-- /.col -->
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col">
+                            <a href="{{ route('forgot-password') }}">Forgot Password ?</a>
+                        </div>
                     </div>
                 </form>
             </div>

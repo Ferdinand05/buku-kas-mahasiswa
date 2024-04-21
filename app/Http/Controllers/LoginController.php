@@ -30,7 +30,7 @@ class LoginController extends Controller
             activity()->event('Logged in')->causedBy(auth()->user()->id)->log(Auth::user()->name . ' Logged in!');
             return redirect()->route('dashboard');
         } else {
-            ValidationException::withMessages([
+            return  throw ValidationException::withMessages([
                 'email' => 'Your Credentials does not match with our records!'
             ]);
         }

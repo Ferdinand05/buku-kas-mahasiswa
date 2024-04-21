@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\JurusanMahasiswaController;
 use App\Http\Controllers\KategoriTransaksiController;
 use App\Http\Controllers\LaporanMahasiswaController;
@@ -20,6 +21,12 @@ Route::middleware('guest')->group(function () {
     // Auth
     Route::get('login', [LoginController::class, 'index'])->name('login');
     Route::post('login', [LoginController::class, 'store'])->name('login.store');
+
+    // forgot password
+    Route::get('forgot-password', [ForgotPasswordController::class, 'index'])->name('forgot-password');
+    Route::post('forgot-password/check-email', [ForgotPasswordController::class, 'check'])->name('forgot-password.check');
+    Route::get('recover-password/{token}', [ForgotPasswordController::class, 'recover'])->name('recover-password');
+    Route::put('recover-password/{token}', [ForgotPasswordController::class, 'passwordRecovery'])->name('password-recovery');
 });
 
 
